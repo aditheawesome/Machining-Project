@@ -1,0 +1,371 @@
+/* @font-face {
+  font-family: Arvo;
+  src: url("filetesting/arvo/reg.ttf");
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+
+body{
+  background-color: #005b96;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 25px;
+  font-family: Arvo;
+  color: white;
+  /* color: white; */
+}
+
+.centered {
+  margin: auto;
+  text-align: center;
+}
+
+/* .builder_page{
+  background-color: #005b96;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 25px;
+  font-family: Arvo;
+  color: white;
+} */
+
+.alert-info{
+  color: lime !important;
+}
+.alert-error{
+  color:orangered !important;
+}
+footer{
+  position: fixed; 
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto;
+  bottom: -20px; 
+  color: white;
+  text-align: center;
+  padding: 10px;
+  
+}
+
+.white{
+  color: white;
+}
+h3{
+  color: white;
+}
+p{
+  color: white;
+}
+a{
+  color: #ffb703;
+}
+
+a:visited{
+  color: #ffb703;
+}
+
+a.cool_url{
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 2px;
+  background-size: 0% 3px;
+  transition: background-size .35s, color .35s;
+
+}
+
+a.cool_url:hover, a.cool_url:focus{
+  color: black;
+  background-size: 100% 3px;
+}
+
+input[type=text], input[type=password]{
+  border: 2px solid white;
+  border-radius: 2px;
+  /* width: 300px; */
+  font-size: 16px;
+  display: block;
+  font-family: Arvo;
+  padding: 15px;
+  /* height: 40px; */
+  box-sizing: border-box;
+  /* border-width: 3px; */
+}
+
+input:focus{
+  outline: none;
+}
+input[type=email]{
+  border: 2px solid white;
+  border-radius: 2px;
+  /* width: 300px; */
+  font-size: 16px;
+  display: block;
+  font-family: Arvo;
+  padding: 15px;
+  /* height: 40px; */
+  box-sizing: border-box;
+  /* border-width: 3px; */
+}
+
+
+input[type=checkbox]{
+  font-size: 20px;
+}
+
+h1{
+  color: white;
+}
+h3{
+  color: white;
+}
+
+textarea{
+  border: 2px solid white;
+  border-radius: 2px;
+  width: 500px;
+  font-size: 16px;
+  display: block;
+  font-family: Arvo;
+  padding: 15px;
+  height: 100px;
+  box-sizing: border-box;
+  /* border-width: 3px; */
+}
+
+textarea:focus{
+  outline: none;
+}
+
+
+input[type=submit]{
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #FFFFFF;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: #005b96;
+  font-family: Arvo;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  transition: all 0.3s;
+  font-size: 18px;
+  box-shadow: 0px 3px 8px 0px rgb(254, 254, 254);
+}
+
+
+input[type=submit]:hover{
+  cursor: pointer;
+  color: #000000;
+  background-color: white;
+}
+
+
+a.cool_button{
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #FFFFFF;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: #005b96;
+  font-family: Arvo;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  transition: all 0.3s;
+  font-size: 18px;
+  box-shadow: 0px 3px 8px 0px rgb(254, 254, 254);
+}
+
+a.cool_button:hover{
+  cursor: pointer;
+  color: #000000;
+  background-color: white;
+}
+
+input[type=file]{
+  margin-left: 75px;
+  border-color: blue;
+  width: 300px;
+  font-size: 16px;
+  height: 55px;
+  display: inline-block;
+  /* padding: 0.35em 1.2em; */
+  /* border: 0.1em solid #FFFFFF; */
+  margin: 0 0.3em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: #005b96;
+  font-family: Arvo;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+input[type=file]:hover{
+  color: #000000;
+  /* background-color: white; */
+}
+
+/* 
+input[type = checkbox]{
+  border-width: 3px;
+} */
+
+h3{
+  color: black;
+}
+
+.testing_check {
+  font-size: 30px;
+}
+.testing_check input{
+  height: 25px;
+  width: 25px;
+}
+
+table{
+  padding: 10px;
+}
+th{
+  padding: 10px;
+  font-size: 20px;
+}
+
+td{
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+:root {
+  --clr-neon: #4D4DFF;
+  /* --clr-bg: hsl(323 21% 16%); */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+.neon-button {
+  font-size: 4rem;
+
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--clr-neon);
+  border: var(--clr-neon) 0.125em solid;
+  padding: 0.25em 1em;
+  border-radius: 0.25em;
+
+  text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.3), 0 0 0.6em currentColor;
+
+  box-shadow: inset 0 0 0.4em 0 var(--clr-neon), 0 0 0.4em 0 var(--clr-neon);
+
+  position: relative;
+}
+
+.neon-button::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  background: var(--clr-neon);
+  top: 120%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
+  filter: blur(1.2em);
+  opacity: 0.7;
+}
+
+.neon-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 0 1em 0.2em var(--clr-neon);
+  opacity: 0;
+  background-color: var(--clr-neon);
+  z-index: -1;
+  transition: opacity 100ms linear;
+}
+
+.neon-button:hover,
+.neon-button:focus {
+  color: var(--clr-bg);
+  text-shadow: none;
+}
+
+.neon-button:hover::before,
+.neon-button:focus::before {
+  opacity: 1;
+}
+.neon-button:hover::after,
+.neon-button:focus::after {
+  opacity: 1;
+}
+
+button{
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #FFFFFF;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: #005b96;
+  font-family: Arvo;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  box-shadow: 0px 3px 8px 0px rgb(254, 254, 254);
+  transition: all 0.3s;
+}
+
+button:hover{
+  color: #000000;
+  background-color: white;
+}
+
+a.cool-button-big{
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #FFFFFF;
+  margin: 0 0.4em 0.4em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: #005b96;
+  font-family: Arvo;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  transition: all 0.3s;
+  box-shadow: 0px 3px 8px 0px rgb(254, 254, 254);
+  font-size: 20px;
+}
+
+a.cool-button-big:hover{
+  color: #000000;
+  background-color: white;
+}
+
+img{
+  margin: auto;
+}

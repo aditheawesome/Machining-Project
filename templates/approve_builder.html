@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+  
+{% block head %}
+  <title>SECRET PAGE FOR APPROVING BUILDERS LOL</title>
+{% endblock %}
+
+{% block body %}
+  <p>This approving page can only be accessed with the direct link lol</p>
+  <!-- each new builder will enter their info and send it to us. this will be reviewed and approved/denied.  -->
+{% endblock %}
+{% block flashbody %}
+  <form action = "/approve_builder_page" enctype = "multipart/form-data" method = "POST" name = "userData">
+    <input type = "text" name = "email_to_be_approved">
+    <input type = "submit" value = "approve">
+  </form>
+  <a href = "/">Return to homescreen?</a>
+{% endblock %}
