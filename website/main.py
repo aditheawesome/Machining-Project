@@ -519,5 +519,7 @@ def arch_requests():
   return render_template("archived_requests.html", stuff_list = stuff_list, request_ids = request_ids, alldocs = alldocs, machineNames = machineNames)
 
 
-
+if __name__ == "__main__":
+  app.jinja_env.cache = {} # random thing found online that supposedly boosts loading time lmao
+  app.run(port = 8000) 
 
