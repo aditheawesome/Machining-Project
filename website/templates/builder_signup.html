@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+  
+{% block head %}
+  <title>Builder Signup</title>
+{% endblock %}
+
+{% block prebody %}
+  <p>Sign up here to be a builder! Your application will be reviewed by us and once approved, you will be able to sign in on builder homepage! Your information is safely hashed in our database.</p>
+{% endblock %}
+{% block flashbody %}
+  <form action = "/builder_signup" enctype = "multipart/form-data" method = "POST" name = "userData">
+    <input type = "email" placeholder = "builder email" name = "builder_email" id = "builder_email" required> 
+    <br>
+
+    <input type = "text" placeholder = "builder name" name = "builder_name" id = "builder_name" required> 
+    <br>
+    <input type = "password" placeholder = "password" name = "psswd" required> 
+    <br>
+
+    <input type = "submit" value = "submit request">
+  </form>
+  <br>
+  <br>
+  <a href = "/" class = "cool_url">Return to homescreen?</a>
+  <br>
+  <br>
+  <a href = "/builder_homepage" class = "cool_url">Return to builder homepage?</a>
+{% endblock %}

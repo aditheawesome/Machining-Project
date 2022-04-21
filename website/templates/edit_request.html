@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>Edit Request</title>
+{% endblock %}
+
+{% block prebody %}
+  <p>Editing request: {{request_id}}</p>
+  <form action = "/edit/{{request_id}}" enctype = "multipart/form-data" method = "POST" name = "edit_stuff">
+    <textarea name = "desc" id = "desc">{{task_desc}}</textarea>
+    <br>
+
+    {% for m in all_machines_names %}
+      {% if m in machines_used %}
+      <input type = "checkbox" name = "{{m}}" checked>{{m}}</input>
+      {% else %}
+      <input type = "checkbox" name = "{{m}}">{{m}}</input>
+      
+      
+      {% endif %}
+      <br>
+      <br>
+
+      
+    {% endfor %}
+    </select>
+    <br>
+    <br>
+    <input name = "edit_stuff" type = "submit" value = "submit">
+
+  </form>
+{% endblock %}
+{% block flashbody %}
+  <form action = "/edit/{{request_id}}" method = "POST" name = "delete_req">
+    <p>Please confirm deletion of this request by typing in "DELETE" below</p>
+    <input type = "text" name = "delete_text" required>
+    <br>
+    <!-- {% with errors = get_flashed_messages(category_filter=["error"]) %}
+      {% for e in errors %}
+        {{e}}
+      {% endfor %}
+    {% endwith %} -->
+    <br>
+    <p>Please enter the reason(s) of deletion.</p>
+    <input type = "text" name = "reason" required>
+    <br>
+    <br>
+    
+    <p><input name = "should_email" type = "checkbox">Email?</p>
+    <br>
+    <br>
+    <input name = "delete_req" type = "submit" value = "delete">
+    
+  </form>
+{% endblock %}

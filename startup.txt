@@ -1,0 +1,8 @@
+Instructions for starting up (in replit):
+
+DO NOT 'cd' into the website folder.
+
+python -m pip install -r requirements.txt
+
+python website/main.py
+
