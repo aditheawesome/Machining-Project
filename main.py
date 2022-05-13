@@ -469,7 +469,10 @@ def approve_builder_func():
     db.session.commit()
     flash("Email approved", "info")
   return render_template("approve_builder.html")
-
+@app.route("/database_download", methods = ["GET"])
+@login_required
+def db_download():
+  return render_template("db_download.html")
 @app.route("/archived_requests", methods = ['POST', 'GET'])
 @login_required
 def arch_requests():
