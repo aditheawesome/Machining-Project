@@ -355,13 +355,14 @@ def reset_id_counter():
 def delete_file(request_id):
   # remove associated files.
   for filename in os.listdir(main.app.config['UPLOAD_FOLDER']):
-    split_tup = os.path.splitext(filename)
-    file_name = split_tup[0] # this is the file_name of the ORIGINAL
-    file_ending = split_tup[1] #file ending of the ORIGINAL
-    num = get_file_num(filename)
-    # print("num: " + str(num))
-    if int(num) == int(request_id):
-      os.remove(os.path.join(main.app.config['UPLOAD_FOLDER'], filename))
+    if filename != "donotdelete.txt":
+      split_tup = os.path.splitext(filename)
+      file_name = split_tup[0] # this is the file_name of the ORIGINAL
+      file_ending = split_tup[1] #file ending of the ORIGINAL
+      num = get_file_num(filename)
+      print("num: " + str(num))
+      if int(num) == int(request_id):
+        os.remove(os.path.join(main.app.config['UPLOAD_FOLDER'], filename))
 
     
 def update_desc(request_id, new_desc):

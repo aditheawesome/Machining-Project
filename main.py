@@ -264,10 +264,11 @@ def builder_login():
 
   alldocs = []
   for filename in os.listdir(app.config['UPLOAD_FOLDER']):
-    if not os.path.join(app.config['UPLOAD_FOLDER'], filename) in alldocs and not filename.endswith(".css"): # need to make it check if it is a folder, in which you don't want it to append.
+    if not os.path.join(app.config['UPLOAD_FOLDER'], filename) in alldocs and not filename.endswith(".css") and not filename == 'donotdelete.txt': # need to make it check if it is a folder, in which you don't want it to append.
         alldocs.append(os.path.join("/static/files/", filename)) 
   
   print('hihiagain')
+  print(alldocs)
   
   x = 0 #iterator
   for i in stuff:
@@ -378,8 +379,13 @@ def edit(request_id):
           print("asdf")
           
         handling_customer.delete_request(request_id)
+        print("req deleted")
         handling_machines.finish_machines(request_id) 
+        print("mac deleted")
+
         handling_customer.delete_file(request_id)
+        print("file deleted")
+
         return redirect('/builder_signed_in')
 
       else:
