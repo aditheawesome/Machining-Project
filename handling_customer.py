@@ -1,3 +1,4 @@
+import re
 import sqlite3
 import smtplib
 import os
@@ -34,16 +35,16 @@ def delete_all_customers():
 def customerCreate(customer_email, customer_name):
   open_database()
   
-  numofoccurrences = conn.execute("SELECT COUNT(customer_id) FROM customer WHERE email_address = \"" + customer_email + "\"").fetchone()[0] 
+  numofoccurrences = conn.execute("SELECT COUNT(customer_id) FROM customer WHERE email_address = ?", (customer_email, )).fetchone()[0] 
   
   print("thing::" + str(numofoccurrences))
 
 
   if (numofoccurrences == 0): #make sure no pre-existing
-    conn.execute("INSERT INTO customer (name_, email_address) values(\"" + customer_name + "\", \"" + customer_email + "\"" + ")")
+    conn.execute("INSERT INTO customer (name_, email_address) values(?, ?)", (customer_name, customer_email))
   else:
     print("customer already exists what are you doing lmao. Updated name to " + customer_name)
-    conn.execute("UPDATE customer SET name_ = \""  + customer_name + "\" WHERE email_address = \"" + customer_email + "\"")
+    conn.execute("UPDATE customer SET name_ = ? WHERE email_address = ?", (customer_name, customer_email))
   conn.commit()
 
 
@@ -139,14 +140,14 @@ def customer_make_request(customer_id, due_date, description):
 
 def get_customer_id(customer_email):
   open_database()
-  thing = conn.execute("SELECT customer_id FROM customer WHERE email_address = \"" + customer_email + "\"")
+  thing = conn.execute("SELECT customer_id FROM customer WHERE email_address = ?", (customer_email, ))
   for i in thing:
     for g in i:
       return g
 
 def delete_request(id):
   open_database()
-  conn.execute("DELETE FROM request WHERE request_id = " + str(id))
+  conn.execute("DELETE FROM request WHERE request_id = ?", (id, ))
   conn.commit()
 
 def close_database():
@@ -176,7 +177,7 @@ def get_emails_from_request():
       ids.append(g)
 
   for i in ids:
-    thing_sql = conn.execute("SELECT email_address FROM customer WHERE customer_id = " + str(i))
+    thing_sql = conn.execute("SELECT email_address FROM customer WHERE customer_id = ?", (i, ))
     for i in thing_sql:
       for g in i:
         emails.append(g)
@@ -196,9 +197,9 @@ def get_email_from_request(request_id):
   open_database()
   print("req id: " + str(request_id))
   # email_sql = conn.execute("SELECT c.email_address FROM customer c, request r WHERE r.customer_id_ = c.customer_id AND r.request_id = " + str(request_id)).fetchall()[0]
-  cust_id = conn.execute("SELECT r.customer_id_ from request r, customer c WHERE r.customer_id_ = c.customer_id and r.request_id = " + str(request_id)).fetchall()[0][0]
+  cust_id = conn.execute("SELECT r.customer_id_ from request r, customer c WHERE r.customer_id_ = c.customer_id and r.request_id = ?", (request_id, )).fetchall()[0][0]
   print("cust id: " + str(cust_id))
-  email_sql = conn.execute("SELECT email_address FROM customer WHERE customer_id = " + str(cust_id)).fetchall()[0][0] 
+  email_sql = conn.execute("SELECT email_address FROM customer WHERE customer_id = ?", (cust_id, )).fetchall()[0][0] 
   
   print("email sql: " + email_sql)
 
@@ -257,7 +258,7 @@ def send_email(receiving_email, subject, body):
   open_database()
   #id, mFrom ('machining.millburn.org') <-- not configed yet!, mTo, mSubject, mBody, email_sent (if it has been sent)
   sender_email = "mhsmachining@gmail.com" #email that is the sender
-  password = "Testingmonkey123"
+  password = "MILLMachining2022"
   open_database()
   print('asdf')
   
@@ -287,7 +288,7 @@ def delete_emails():
 def get_description(id):
   #get description associated with a request
   open_database()
-  desc_sql = conn.execute("SELECT description_ FROM request WHERE request_id = " + str(id))
+  desc_sql = conn.execute("SELECT description_ FROM request WHERE request_id = ?", (id, ))
   desc_returned = ""
   for i in desc_sql:
     for g in i:
@@ -307,9 +308,9 @@ def finish_request(request_id):
   #delete the request when finished.
   open_database()
   # delete_all_archived_requests()
-  conn.execute("UPDATE request SET is_completed = " + str(1) + " WHERE request_id = " + str(request_id))
+  conn.execute("UPDATE request SET is_completed = 1 WHERE request_id = ?", (request_id, ))
   conn.commit()
-  idk = conn.execute("SELECT customer_id_, due_date, description_, is_completed FROM request WHERE request_id = " + str(request_id))
+  idk = conn.execute("SELECT customer_id_, due_date, description_, is_completed FROM request WHERE request_id = ?", (request_id, ))
 
   thing = []
 
@@ -332,9 +333,9 @@ def finish_request(request_id):
 
   for i in what:
     mach_id = handling_machines.get_machine_id_from_name(i)
-    conn.execute("INSERT INTO machine_request_archived values (NULL, " + str(request_id) + ", " + str(mach_id) + ")")
+    conn.execute("INSERT INTO machine_request_archived values (NULL, ?, ?)", (request_id, mach_id))
 
-    conn.execute("DELETE FROM machine_request WHERE request_id_ = " + str(request_id))
+    conn.execute("DELETE FROM machine_request WHERE request_id_ = ?", (request_id, ))
     
     conn.commit()
 
@@ -342,7 +343,7 @@ def finish_request(request_id):
   # print_all_machine_info()
   delete_file(request_id)
 
-  conn.execute("DELETE FROM request WHERE request_id = " + str(request_id))
+  conn.execute("DELETE FROM request WHERE request_id = ?", (request_id, ))
 
   conn.commit()
 
@@ -366,7 +367,7 @@ def delete_file(request_id):
     
 def update_desc(request_id, new_desc):
   open_database()
-  conn.execute("UPDATE request SET description_ = \"" + new_desc + "\" WHERE request_id = " + str(request_id))
+  conn.execute("UPDATE request SET description_ = ? WHERE request_id = ?", (new_desc, request_id))
   conn.commit()
   
 def delete_all_archived_requests():
@@ -390,7 +391,7 @@ def print_archived_requests():
 def get_customer_id_by_request(request_id):
   #get the customer id that is associated with a request
   open_database()
-  id_thing = conn.execute("SELECT customer_id_ FROM request where request_id = " + str(request_id)).fetchone()[0]
+  id_thing = conn.execute("SELECT customer_id_ FROM request where request_id = ?", (request_id, )).fetchone()[0]
 
   print("customer id is " + str(id_thing))
   return id_thing
@@ -398,19 +399,19 @@ def get_customer_id_by_request(request_id):
 def get_name_from_request(request_id): #NOT included in request table
   open_database()
   customer_id = get_customer_id_by_request(request_id)
-  name = conn.execute("SELECT name_ from customer WHERE customer_id = " + str(customer_id)).fetchone()[0]
+  name = conn.execute("SELECT name_ from customer WHERE customer_id = ?", (customer_id, )).fetchone()[0]
   
   return name
 
 def get_desc_from_request(request_id): #included in request table
   open_database()
-  desc = conn.execute("SELECT description_ from request WHERE request_id = " + str(request_id)).fetchone()[0]
+  desc = conn.execute("SELECT description_ from request WHERE request_id = ?", (request_id, )).fetchone()[0]
 
   return desc
 
 def get_date_from_request(request_id): #included in request table
   open_database()
-  date_sql = conn.execute("SELECT due_date from request WHERE request_id = " + str(request_id)).fetchone()[0]
+  date_sql = conn.execute("SELECT due_date from request WHERE request_id = ?", (request_id, )).fetchone()[0]
 
   return date_sql
 
@@ -487,13 +488,9 @@ def get_emails_from_archived_request():
       ids.append(g)
 
   for i in ids:
-    thing_sql = conn.execute("SELECT email_address FROM customer WHERE customer_id = " + str(i))
+    thing_sql = conn.execute("SELECT email_address FROM customer WHERE customer_id = ?", (i, ))
     for i in thing_sql:
       for g in i:
         emails.append(g)
 
   return emails
-
-
-
-

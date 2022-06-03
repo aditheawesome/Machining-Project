@@ -31,7 +31,7 @@ def get_machineNames_used_by_id(request_id):
   open_database()
   # print_all_machine_info()
 
-  machineNameOrig = conn.execute("SELECT m.machine_name FROM machine m, machine_request c WHERE c.request_id_ = " + str(request_id) + " and c.machine_id_ = m.machine_id").fetchall()
+  machineNameOrig = conn.execute("SELECT m.machine_name FROM machine m, machine_request c WHERE c.request_id_ = ? and c.machine_id_ = m.machine_id", (request_id, )).fetchall()
 
   returned = []
   for i in machineNameOrig:
@@ -44,7 +44,7 @@ def get_machineNames_used_by_id(request_id):
 def finish_machines(request_id):
   open_database()
 
-  conn.execute("DELETE FROM machine_request WHERE request_id_ = " + str(request_id))
+  conn.execute("DELETE FROM machine_request WHERE request_id_ = ?", (request_id, ))
 
   # put into archived.
 
@@ -63,7 +63,7 @@ def make_machine_request(request_id, machine_id):
 def get_machine_id_from_name(machine_name):
   # print("machine name: " + machine_name)
   open_database()
-  returned = conn.execute("SELECT machine_id FROM machine WHERE machine_name = \"" + machine_name + "\"").fetchone()[0]
+  returned = conn.execute("SELECT machine_id FROM machine WHERE machine_name = ?", (machine_name, )).fetchone()[0]
 
 
   return int(returned)
@@ -80,7 +80,7 @@ def add_machine(machine_name, machine_desc):
 def remove_machine(machine_name):
   open_database()
   try:
-    conn.execute("DELETE FROM machine WHERE machine_name = \"" + str(machine_name) + "\"")
+    conn.execute("DELETE FROM machine WHERE machine_name = ?", (machine_name, )) 
     print("deleted: " + machine_name)
   except:
     print("this machine does not exist!")
@@ -117,7 +117,7 @@ def get_all_machine_descriptions():
 def get_all_used_machines(request_id):
 
   open_database()
-  thing = conn.execute("SELECT machine_name FROM machine m, machine_request c, request r WHERE m.machine_id = c.machine_id_ and c.request_id_ = r.request_id and r.request_id = " + str(request_id))
+  thing = conn.execute("SELECT machine_name FROM machine m, machine_request c, request r WHERE m.machine_id = c.machine_id_ and c.request_id_ = r.request_id and r.request_id = ?", (request_id, ))
   returned = []
 
   for i in thing:
@@ -135,7 +135,7 @@ def get_machineNames_used_by_archived_id(request_id):
   open_database()
   # print_all_machine_info()
 
-  machineNameOrig = conn.execute("SELECT m.machine_name FROM machine m, machine_request_archived c WHERE c.request_id_ = " + str(request_id) + " and c.machine_id_ = m.machine_id").fetchall()
+  machineNameOrig = conn.execute("SELECT m.machine_name FROM machine m, machine_request_archived c WHERE c.request_id_ = ? and c.machine_id_ = m.machine_id", (request_id, )).fetchall()
 
   returned = []
   for i in machineNameOrig:
@@ -149,7 +149,7 @@ def get_machineNames_used_by_archived_id(request_id):
 def alter_machines(request_id, machine_id_list, machineListInfo):
   open_database()
   # alter the machines for a specific request.
-  conn.execute("DELETE FROM machine_request WHERE request_id_ = " + str(request_id))
+  conn.execute("DELETE FROM machine_request WHERE request_id_ = ?", (request_id, ))
   # conn.commit()
 
   open_database() # need to reopen database after commit
