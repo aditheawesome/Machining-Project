@@ -14,8 +14,8 @@ def open_database():
 # Utility functions
 def delete_builder(builder_email):
     open_database()
-    conn.execute("DELETE FROM builder WHERE email_address = \"" + str(builder_email) + "\"")
-    conn.execute("DELETE FROM User WHERE email = \"" + str(builder_email) + "\"")
+    conn.execute("DELETE FROM builder WHERE email_address = ?", (builder_email, ))
+    conn.execute("DELETE FROM User WHERE email = ?", (builder_email, ))
     conn.commit()
     conn.close()
 
@@ -44,7 +44,7 @@ def print_all_builders():
 
 def get_builder_id(builder_email):
     open_database()
-    thing = conn.execute("SELECT builder_id FROM builder WHERE email_address = \"" + builder_email + "\"")
+    thing = conn.execute("SELECT builder_id FROM builder WHERE email_address = ?", (builder_email, ))
     returned_email = ""
 
     for i in thing:
@@ -58,7 +58,7 @@ def check_builder(builder_email):
     open_database()
     print(builder_email)
     builder_isapproved = conn.execute(
-        "SELECT isapproved, builder_id FROM builder WHERE email_address = \"" + builder_email + "\"")
+        "SELECT isapproved, builder_id FROM builder WHERE email_address = ?", (builder_email, ))
     otherthinglist = []
     print_all_builders()
     print("it is.. " + str(builder_isapproved))
@@ -96,7 +96,7 @@ def getunapproved():
 def find(builder_email):
     open_database()
 
-    thing = conn.execute("SELECT COUNT(builder_id) FROM builder WHERE email_address = \"" + builder_email + "\"")
+    thing = conn.execute("SELECT COUNT(builder_id) FROM builder WHERE email_address = ?", (builder_email, ))
 
     numofoccurrences = 0
     for i in thing:
@@ -115,7 +115,7 @@ def add_builder(builder_email, builder_name, password):
     open_database()
 
     params = (builder_name, builder_email, password, 0)
-    thing = conn.execute("SELECT COUNT(builder_id) FROM builder WHERE email_address = \"" + builder_email + "\"")
+    thing = conn.execute("SELECT COUNT(builder_id) FROM builder WHERE email_address = ?", (builder_email, ))
     print("brobro")
     print(params)
 
@@ -134,15 +134,14 @@ def add_builder(builder_email, builder_name, password):
 def approve_builder(builder_email):
     open_database()
     print("approving!")
-    conn.execute(
-        "UPDATE builder SET isapproved = " + str(1) + " WHERE builder_id = " + str(get_builder_id(builder_email)))
+    conn.execute("UPDATE builder SET isapproved = 1 WHERE builder_id = ?", ((get_builder_id(builder_email)), ))
     conn.commit()
 
 
 def unapprove_builder(builder_email):
     open_database()
     print("unapproving!")
-    conn.execute("UPDATE builder SET isapproved = " + str(0) + " WHERE builder_id = " + get_builder_id(builder_email))
+    conn.execute("UPDATE builder SET isapproved = 0 WHERE builder_id = ?", (get_builder_id(builder_email), ))
     conn.commit()
 
 
@@ -159,7 +158,7 @@ def add_and_approve(builder_email, builder_name, password):
 def get_hashed_pass(id):
     open_database()
 
-    thing = conn.execute("SELECT pswd FROM builder WHERE builder_id = " + str(id))
+    thing = conn.execute("SELECT pswd FROM builder WHERE builder_id = ?", (id, ))
     returned = ""
     for i in thing:
         for g in i:
@@ -172,7 +171,7 @@ def get_hashed_pass(id):
 
 def finish_task(request_id):
     open_database()
-    conn.execute("UPDATE request SET is_completed = 1 WHERE request_id = " + str(request_id))
+    conn.execute("UPDATE request SET is_completed = 1 WHERE request_id = ?", (request_id, ))
     conn.commit()
 
 
