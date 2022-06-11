@@ -258,7 +258,8 @@ def send_email(receiving_email, subject, body):
   open_database()
   #id, mFrom ('machining.millburn.org') <-- not configed yet!, mTo, mSubject, mBody, email_sent (if it has been sent)
   sender_email = "mhsmachining@gmail.com" #email that is the sender
-  password = "MILLMachining2022"
+  password = "eybrmybwvmhyuvbq"
+
   open_database()
   print('asdf')
   
